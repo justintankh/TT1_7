@@ -15,4 +15,4 @@ for his youtube tutorial on [Full Stack MERN Project](https://www.youtube.com/wa
 
 
 **Setup:**
-- run ```npm i``` for both client and server side to install packages
+- run npm i && npm start for both client and server side to start the app
