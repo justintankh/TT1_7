@@ -33,15 +33,10 @@ export const Dashboard = (props) => {
     removeUserSession();
     props.history.push('/login')
   }
-<<<<<<< HEAD
-  
-=======
-  // TODO: use -> call axios to obtain product data
 
 
   const productlist = dataproduct.products
-  const [ products, setProducts ] = useState(productlist);
->>>>>>> 9760d75dca743e70d88b31a47a2433f579085d92
+  //const [ products, setProducts ] = useState(productlist);
   //const { products } = dataproduct;
   
   
@@ -118,3 +113,4 @@ export const Dashboard = (props) => {
 };
 
 // export default Home;
+
