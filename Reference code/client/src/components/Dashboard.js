@@ -1,17 +1,15 @@
-import React  from 'react';
-import logo from '../assets/logo.png'
-import { getUser,removeUserSession } from '../Utils/Common';
-import dataproduct from '../dataproduct';
-import Basket from './Basket';
-import data from '../data';
-import Main from './Main';
-import Header from './Header';
-import { useState } from 'react';
-
+import React from "react";
+import logo from "../assets/logo.png";
+import { getUser, removeUserSession } from "../Utils/Common";
+import dataproduct from "../dataproduct";
+import Basket from "./Basket";
+import data from "../data";
+import Main from "./Main";
+import Header from "./Header";
+import { useState } from "react";
 
 
 export const Dashboard = (props) => {
-
   const user = getUser();
 
   const handleLogout = () => {
@@ -74,23 +72,26 @@ export const Dashboard = (props) => {
       );
     }
   };
-  
+
   return (
     <div className="Home">
       <Header countCartItems={cartItems.length}></Header>
-      Hello {user.name} <br /><br />
+      Hello {user.name} <br />
+      <br />
       <div className="row">
-        <Main products ={products} onAdd={onAdd} ></Main>
+        <Main products={products} onAdd={onAdd}></Main>
         <Basket
           cartItems={cartItems}
           onAdd={onAdd}
           onRemove={onRemove}
         ></Basket>
       </div>
-      <input type="button" value="Logout" onClick={handleLogout}/><br /><br />
-      <img src= {logo} alt="Logo" />;
+      <input type="button" value="Logout" onClick={handleLogout} />
+      <br />
+      <br />
+      <img src={logo} alt="Logo" />;
     </div>
   );
-}
+};
 
 // export default Home;
