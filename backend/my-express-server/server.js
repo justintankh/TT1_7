@@ -79,33 +79,6 @@ mongoose.connect('mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.ne
 //   mongoose.connection.close().then(()=>{console.log(`Successfully closed ${dbName} @ ${url}.`)})
 // })
 
-// data schema
-const categorySchema = new mongoose.Schema ({
-  id: Number,
-  name: String,
-  description: String,
-  image: String,
-});
-const Category = mongoose.model("Category", categorySchema);
-
-// Saving multiple document
-// Fruit.insertMany([apple, orange, banana], (err)=>{
-//   err ? console.log(err) : console.log("Successfully saved all the fruits to fruitsDB");
-// })
-// // Saving single document
-// apple.save();
-
-// Retrieving document
-Category.find((err, items) =>{
-  // err? console.log(err) : console.log(fruits);
-  items.forEach(item => {
-    console.log(item.name);
-  });
-  // Close db
-  mongoose.connection.close().then(()=>{console.log(`Successfully closed ${dbName} @ ${url}.`)})
-})
-
-
 // Updating document
 // Fruit.updateMany({name: "Apple"}, {name: "Peach"}, (err) => {
 //   err? console.log(err) : console.log("Successfully updated document.");
@@ -120,6 +93,65 @@ Category.find((err, items) =>{
 // Fruit.deleteMany({name: "Peach"}, (err) =>{
 //   err? console.log(err) : console.log("Successfully deleted document.");
 // })
+
+
+// data schema
+const categorySchema = new mongoose.Schema ({
+  id: Number,
+  name: String,
+  description: String,
+  image: String,
+});
+const Category = mongoose.model("Category", categorySchema);
+
+const customerSchema = new mongoose.Schema ({
+  id: Number,
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  postal_code: String,
+  gender: String,
+  created_at: String,
+});
+const Customer = mongoose.model("Customer", customerSchema);
+
+const productSchema = new mongoose.Schema ({
+  id: Number,
+  title: String,
+  price: String,
+  description: String,
+  category_id: String,
+  image: String,
+  qty: Number,
+});
+const Product = mongoose.model("Product", productSchema);
+
+// Retrieving document
+Category.find((err, items) =>{
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.name);
+  });
+  // Close db
+})
+// Retrieving document
+Customer.find((err, items) =>{
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.username);
+  });
+  // Close db
+})
+// Retrieving document
+Product.find((err, items) =>{
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.title);
+  });
+  // Close db
+  mongoose.connection.close().then(()=>{console.log(`Successfully closed ${dbName} @ ${url}.`)})
+})
 
 
 // Express.js //
