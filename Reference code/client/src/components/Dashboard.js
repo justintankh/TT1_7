@@ -17,34 +17,59 @@ export const Dashboard = (props) => {
   const handleLogout = () => {
     removeUserSession();
     props.history.push('/login')
-  }
 
-  //const [ products, setProducts ] = useState({});
-  const { products } = dataproduct;
+  }
+  const productlist = dataproduct.products
+  const [ products, setProducts ] = useState(productlist);
+  //const { products } = dataproduct;
   
   
   const [cartItems, setCartItems] = useState([]);
 
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
+    const productItem = products.find((x) => x.id === product.id);
     if (exist) {
       setCartItems(
         cartItems.map((x) =>
           x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
         )
       );
+      setProducts(
+        products.map((x) =>
+          x.id === product.id ? { ...productItem, qty: productItem.qty - 1 } : x
+        )
+      );
+
+
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
+      setProducts(
+        products.map((x) =>
+          x.id === product.id ? { ...productItem, qty: productItem.qty - 1 } : x
+        )
+      );
     }
   };
   const onRemove = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
+    const productItem = products.find((x) => x.id === product.id);
     if (exist.qty === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
+      setProducts(
+        products.map((x) =>
+          x.id === product.id ? { ...productItem, qty: productItem.qty + 1 } : x
+        )
+      );
     } else {
       setCartItems(
         cartItems.map((x) =>
           x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+        )
+      );
+      setProducts(
+        products.map((x) =>
+          x.id === product.id ? { ...productItem, qty: productItem.qty + 1 } : x
         )
       );
     }
