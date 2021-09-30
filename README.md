@@ -16,3 +16,6 @@ on [Full Stack MERN Project](https://www.youtube.com/watch?v=ngc9gnGgUdA)
 
 **Setup: (For reference code)**
 - run ``npm i && npm start`` for both client and server side to start the app
+
+
+![Requirements](https://cdn.discordapp.com/attachments/662275752858746881/892954131973689344/a0bb7f8a-96ad-4e84-9cc8-039b8973b582.png)
