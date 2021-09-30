@@ -20,6 +20,7 @@ export const Dashboard = (props) => {
   }
 
   const { products } = dataproduct;
+  
   const [cartItems, setCartItems] = useState([]);
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
