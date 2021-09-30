@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/logo.png";
 import { getUser, removeUserSession } from "../Utils/Common";
 import dataproduct from "../dataproduct";
 import Basket from "./Basket";
 import data from "../data";
+import axios, { setData } from "axios";
 import Main from "./Main";
 import Header from "./Header";
 import { useState } from "react";
@@ -12,13 +13,28 @@ import { useState } from "react";
 export const Dashboard = (props) => {
   const user = getUser();
 
+  //const productlist = dataproduct.products
+  const [ products, setProducts ] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'http://localhost:4000/product',
+      );
+      
+      setProducts(result.data)
+      console.log(result.data)
+    };
+ 
+    fetchData();
+  }, []);
+
   const handleLogout = () => {
     removeUserSession();
     props.history.push('/login')
 
   }
-  const productlist = dataproduct.products
-  const [ products, setProducts ] = useState(productlist);
+  
   //const { products } = dataproduct;
   
   
