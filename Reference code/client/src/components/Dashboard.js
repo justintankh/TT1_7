@@ -7,6 +7,7 @@ import data from "../data";
 import Main from "./Main";
 import Header from "./Header";
 import { useState } from "react";
+import "/bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
 
 export const Dashboard = (props) => {
