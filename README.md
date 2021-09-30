@@ -1,4 +1,4 @@
-# dbs_hackathon123
+# For our DBS Hacakthon
 ## This GIT repo consist of a Full MERN Stack Template for reference, and other links to facilitate the work for DBS SEED Hackathon 
 
 The MERN stack template is <u>fully credited</u> to [adrianhajdin](https://github.com/adrianhajdin/project_mern_memories/tree/PART_1_and_2) 
