@@ -34,7 +34,7 @@
 // Mongoose //
 const mongoose = require("mongoose");
 const url = "mongodb://localhost:27017";
-const dbName = 'fruitsDB';
+const dbName = 'maindb';
 // mongoose.connect(url + "/" + dbName)
 mongoose.connect('mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.net/maindb');
 
@@ -82,7 +82,7 @@ mongoose.connect('mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.ne
 // data schema
 const categorySchema = new mongoose.Schema ({
   id: Number,
-  name: Number,
+  name: String,
   description: String,
   image: String,
 });
