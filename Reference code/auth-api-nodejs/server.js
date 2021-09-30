@@ -1,5 +1,3 @@
-//import Backend from '../../backend/my-express-server/server';
-
 require('dotenv').config();
 
 const express = require('express');
@@ -11,21 +9,70 @@ const utils = require('./utils');
 const app = express();
 const port = process.env.PORT || 4000;
 
-// static user details
-const userData = {
-  userId: "789789",
-  password: "123456",
-  name: "DBS user 0456",
-  username: "dbs123456",
-  isAdmin: true
+// Mongoose //
+const mongoose = require("mongoose");
+mongoose.connect('mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.net/maindb');
+
+// User database
+
+let usersData = [];
+const customerSchema = new mongoose.Schema ({
+  id: Number,
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  postal_code: String,
+  gender: String,
+  created_at: String,
+});
+const Customer = mongoose.model("Customer", customerSchema);
+
+// Retrieving document
+Customer.find((err, items) => {
+  // usersData = items;
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.username);
+    usersData.push(item);
+  });
+  // Close db
+  console.log("usersData:", usersData);
+})
+
+let dataproduct = {
+  products: []
 };
+const productSchema = new mongoose.Schema ({
+  id: Number,
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  postal_code: String,
+  gender: String,
+  created_at: String,
+});
+const Product = mongoose.model("Product", productSchema);
+
+// Retrieving document
+Product.find((err, items) => {
+  // usersData = items;
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.id);
+    dataproduct.products.push(item);
+  });
+  // Close db
+  console.log("usersData:", dataproduct.products);
+})
 
 // enable CORS
 app.use(cors());
 // parse application/json
-app.use(express.json());
+app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //middleware that checks if JWT token exists and verifies it if it does exist.
@@ -56,6 +103,19 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Node.js Tutorial! - ' + req.user.name);
 });
 
+app.get('/product', function(req, res) {
+  return res.send(dataproduct.products);
+})
+
+app.post('/product/:id', function (req, res){
+  const product_id = req.body.id;
+  const qty = req.body.qty;
+
+  dataproduct.products.forEach(item =>{
+    // if(item.)
+  })
+
+})
 
 // validate the user credentials
 app.post('/users/signin', function (req, res) {
@@ -70,20 +130,23 @@ app.post('/users/signin', function (req, res) {
     });
   }
 
+  usersData.forEach(User => {
+    if(user == User.username && pwd == User.password){
+      // generate token
+      const token = utils.generateToken(User);
+      // get basic user details
+      const userObj = utils.getCleanUser(User);
+      // return the token along with user details
+      return res.json({ user: userObj, token });
+    }
+  })
+
   // return 401 status if the credential is not match.
-  if (user !== userData.username || pwd !== userData.password) {
+  // if (user !== usersData.username || pwd !== usersData.password) {
     return res.status(401).json({
       error: true,
       message: "Username or Password is Wrong."
     });
-  }
-
-  // generate token
-  const token = utils.generateToken(userData);
-  // get basic user details
-  const userObj = utils.getCleanUser(userData);
-  // return the token along with user details
-  return res.json({ user: userObj, token });
 });
 
 
@@ -117,27 +180,8 @@ app.get('/verifyToken', function (req, res) {
   });
 });
 
-app.get('/testGet', function (req, res) {
-  try {
-    return res.status(200).json("testGet: Success");
-  }
-  catch (error) {
-    return res.status(404).json({ message: error.message });
-  }
-})
-
-app.get('/getAllItemNames', function (req, res) {
-  try {
-    const payload = Backend.GetAllItems();
-
-    console.log("getAllItemNames: Success");
-    return res.status(200).json(payload);
-  }
-  catch (error) {
-    return res.status(404).json({ message: error.message });
-  }
-})
-
 app.listen(port, () => {
   console.log('Server started on: ' + port);
 });
+
+app.get('')
