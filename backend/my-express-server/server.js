@@ -96,7 +96,7 @@ mongoose.connect('mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.ne
 
 
 // data schema
-const categorySchema = new mongoose.Schema ({
+const categorySchema = new mongoose.Schema({
   id: Number,
   name: String,
   description: String,
@@ -104,7 +104,7 @@ const categorySchema = new mongoose.Schema ({
 });
 const Category = mongoose.model("Category", categorySchema);
 
-const customerSchema = new mongoose.Schema ({
+const customerSchema = new mongoose.Schema({
   id: Number,
   username: String,
   password: String,
@@ -116,7 +116,7 @@ const customerSchema = new mongoose.Schema ({
 });
 const Customer = mongoose.model("Customer", customerSchema);
 
-const productSchema = new mongoose.Schema ({
+const productSchema = new mongoose.Schema({
   id: Number,
   title: String,
   price: String,
@@ -128,31 +128,37 @@ const productSchema = new mongoose.Schema ({
 const Product = mongoose.model("Product", productSchema);
 
 // Retrieving document
-Category.find((err, items) =>{
+Category.find((err, items) => {
   // err? console.log(err) : console.log(fruits);
   items.forEach(item => {
     console.log(item.name);
   });
   // Close db
+  CloseDB();
 })
 // Retrieving document
-Customer.find((err, items) =>{
+Customer.find((err, items) => {
   // err? console.log(err) : console.log(fruits);
   items.forEach(item => {
     console.log(item.username);
   });
   // Close db
+  CloseDB();
 })
 // Retrieving document
-Product.find((err, items) =>{
+Product.find((err, items) => {
   // err? console.log(err) : console.log(fruits);
   items.forEach(item => {
     console.log(item.title);
   });
   // Close db
-  mongoose.connection.close().then(()=>{console.log(`Successfully closed ${dbName} @ ${url}.`)})
+  CloseDB();
 })
 
+CloseDB()
+{
+  mongoose.connection.close().then(() => { console.log(`Successfully closed ${dbName} @ ${url}.`) })
+}
 
 // Express.js //
 const express = require('express');
@@ -164,18 +170,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    // res.send('Hello World!')   
-    // console.log(__dirname)
-    res.sendFile(__dirname + '/index.html');
+  // res.send('Hello World!')   
+  // console.log(__dirname)
+  res.sendFile(__dirname + '/index.html');
 })
 
 app.post('/', (req, res) => {
-    res.send(`Thanks for posting that!\n\n
+  res.send(`Thanks for posting that!\n\n
     The result of the calculation is 
     ${parseInt(req.body.num1) + parseInt(req.body.num2)}`);
-    console.log(req.body);
+  console.log(req.body);
 })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 })
+
+GetAllItemsNames()
+{
+  return Category.find();
+}
