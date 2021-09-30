@@ -14,5 +14,5 @@ on [Full Stack MERN Project](https://www.youtube.com/watch?v=ngc9gnGgUdA)
 - mongodb url ```const CONNECTION_URL = 'mongodb+srv://hackathon:hackathon123@cluster0.aerev.mongodb.net/mainDB';```
 
 
-**Setup:**
+**Setup: (For reference code)**
 - run ``npm i && npm start`` for both client and server side to start the app
