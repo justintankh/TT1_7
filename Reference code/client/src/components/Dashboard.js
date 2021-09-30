@@ -15,8 +15,10 @@ export const Dashboard = (props) => {
   const handleLogout = () => {
     removeUserSession();
     props.history.push('/login')
-
   }
+  // use -> call axios to obtain product data
+  
+
   const productlist = dataproduct.products
   const [ products, setProducts ] = useState(productlist);
   //const { products } = dataproduct;

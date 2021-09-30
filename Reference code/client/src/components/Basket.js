@@ -59,6 +59,7 @@ export default function Basket(props) {
             <div className="row">
               <button onClick={() => alert('Implement Checkout!')}>
                 Checkout
+                {/* product id , product qty */}
               </button>
             </div>
           </>

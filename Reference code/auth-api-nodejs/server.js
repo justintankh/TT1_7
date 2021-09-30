@@ -112,9 +112,11 @@ app.post('/product/:id', function (req, res){
   const qty = req.body.qty;
 
   dataproduct.products.forEach(item =>{
-    // if(item.)
+    if(item.id == product_id){
+      return res.json({return: true});
+    }
   })
-
+  return res.json({return: false});
 })
 
 // validate the user credentials
