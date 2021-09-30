@@ -1,3 +1,5 @@
+//import Backend from '../../backend/my-express-server/server';
+
 require('dotenv').config();
 
 const express = require('express');
@@ -114,6 +116,27 @@ app.get('/verifyToken', function (req, res) {
     return res.json({ user: userObj, token });
   });
 });
+
+app.get('/testGet', function (req, res) {
+  try {
+    return res.status(200).json("testGet: Success");
+  }
+  catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+})
+
+app.get('/getAllItemNames', function (req, res) {
+  try {
+    const payload = Backend.GetAllItems();
+
+    console.log("getAllItemNames: Success");
+    return res.status(200).json(payload);
+  }
+  catch (error) {
+    return res.status(404).json({ message: error.message });
+  }
+})
 
 app.listen(port, () => {
   console.log('Server started on: ' + port);

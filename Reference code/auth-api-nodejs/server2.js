@@ -100,7 +100,7 @@ app.post('/users/signin', function (req, res) {
   }
 
   usersData.forEach(User => {
-    if(user == User.username || pwd == User.password){
+    if(user == User.username && pwd == User.password){
       // generate token
       const token = utils.generateToken(userData);
       // get basic user details
