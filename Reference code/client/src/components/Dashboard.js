@@ -19,9 +19,12 @@ export const Dashboard = (props) => {
     props.history.push('/login')
   }
 
+  //const [ products, setProducts ] = useState({});
   const { products } = dataproduct;
   
+  
   const [cartItems, setCartItems] = useState([]);
+
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
