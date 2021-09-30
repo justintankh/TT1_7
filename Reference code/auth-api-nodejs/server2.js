@@ -52,9 +52,9 @@ const userData = {
 // enable CORS
 app.use(cors());
 // parse application/json
-app.use(express.json());
+app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //middleware that checks if JWT token exists and verifies it if it does exist.
@@ -100,7 +100,7 @@ app.post('/users/signin', function (req, res) {
   }
 
   usersData.forEach(User => {
-    if(user == User.username || pwd == User.password){
+    if(user == User.username && pwd == User.password){
       // generate token
       const token = utils.generateToken(userData);
       // get basic user details
