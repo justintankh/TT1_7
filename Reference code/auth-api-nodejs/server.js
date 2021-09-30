@@ -45,13 +45,12 @@ let dataproduct = {
 };
 const productSchema = new mongoose.Schema ({
   id: Number,
-  username: String,
-  password: String,
-  first_name: String,
-  last_name: String,
-  postal_code: String,
-  gender: String,
-  created_at: String,
+  title: String,
+  price: Number,
+  description: String,
+  category_id: Number,
+  image: String,
+  qty: Number,
 });
 const Product = mongoose.model("Product", productSchema);
 
@@ -105,19 +104,28 @@ app.get('/', (req, res) => {
 
 app.get('/product', function(req, res) {
   return res.send(dataproduct.products);
-})
+});
 
-app.post('/product/:id', function (req, res){
-  const product_id = req.body.id;
-  const qty = req.body.qty;
-
+app.get('/product/:id', function (req, res){
+  const product_id = req.params.id;
+  
   dataproduct.products.forEach(item =>{
+    console.log(item);
+    console.log(product_id);
     if(item.id == product_id){
-      return res.json({return: true});
+      return res.json({item});
     }
   })
   return res.json({return: false});
 })
+
+app.post('/checkout', function (req, res){
+  const list_of_items = req.body.products
+  list_of_items.forEach(item =>{
+        Product.update({"id": item.product_id}, {$inc: {"qty": -qty}})
+    })
+    return res.json({ value: sucessful});
+  });
 
 // validate the user credentials
 app.post('/users/signin', function (req, res) {
