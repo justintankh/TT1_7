@@ -1,42 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import './App.css';
+import react, { useState } from 'react';
+import { BrowserRouter, NavLink, Switch, Route } from "react-router-dom";
+import { Home } from './components/Home';
+import { Dashboard } from './components/Dashboard';
+import { Login } from './components/Login';
+import PublicRoute from './Utils/PublicRoute';
+import PrivateRoute from './Utils/PrivateRoute';
+import { getToken } from './Utils/Common';
 
-import Posts from './components/Posts/Posts';
-import Form from './components/Form/Form';
-import { getPosts } from './actions/posts';
-import useStyles from './styles';
-import memories from './images/memories.png';
+function App() {
 
-const App = () => {
-  const [currentId, setCurrentId] = useState(0);
-  const dispatch = useDispatch();
-  const classes = useStyles();
+  const [authLoading, setAuthLoading] = useState(true);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  // if(authLoading && getToken()){
+  //   return <div class="content">Checking Authentication...</div>
+  // }
 
   return (
-    <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
-        <img className={classes.image} src={memories} alt="icon" height="60" />
-      </AppBar>
-      <Grow in>
-        <Container>
-          <Grid container justify="space-between" alignItems="stretch" spacing={3}>
-            <Grid item xs={12} sm={7}>
-              <Posts setCurrentId={setCurrentId} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
-    </Container>
+    <div className="app">
+      <BrowserRouter>
+        <div className="header">
+          <NavLink exact activeClassName="active" to="/">Home</NavLink>
+          <NavLink activeClassName="active" to="/login">Login <small>Access w/o token only</small></NavLink>
+          <NavLink activeClassName="active" to="/dashboard">Dashboard<small>Access w token only</small></NavLink>
+        </div>
+        <div className="content">
+          <Switch>
+            <Route exact path = "/" component= {Home}></Route>
+            <PublicRoute path = "/login" component= {Login}/>
+            <PrivateRoute path = "/dashboard" component= {Dashboard}/>
+          </Switch>
+
+        </div>
+      </BrowserRouter>
+    </div>
   );
-};
+}
 
 export default App;
