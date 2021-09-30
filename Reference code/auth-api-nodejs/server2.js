@@ -40,14 +40,32 @@ Customer.find((err, items) => {
   console.log("usersData:", usersData);
 })
 
-// static user details
-const userData = {
-  userId: "789789",
-  password: "123456",
-  name: "DBS user 0456",
-  username: "dbs123456",
-  isAdmin: true
+let dataproduct = {
+  products: []
 };
+const productSchema = new mongoose.Schema ({
+  id: Number,
+  username: String,
+  password: String,
+  first_name: String,
+  last_name: String,
+  postal_code: String,
+  gender: String,
+  created_at: String,
+});
+const Product = mongoose.model("Product", productSchema);
+
+// Retrieving document
+Product.find((err, items) => {
+  // usersData = items;
+  // err? console.log(err) : console.log(fruits);
+  items.forEach(item => {
+    console.log(item.id);
+    dataproduct.products.push(item);
+  });
+  // Close db
+  console.log("usersData:", dataproduct.products);
+})
 
 // enable CORS
 app.use(cors());
@@ -84,6 +102,10 @@ app.get('/', (req, res) => {
   if (!req.user) return res.status(401).json({ success: false, message: 'Invalid user to access it.' });
   res.send('Welcome to the Node.js Tutorial! - ' + req.user.name);
 });
+
+app.get('/product', function(req, res) {
+  return res.send(dataproduct.products);
+})
 
 
 // validate the user credentials
